@@ -20,17 +20,17 @@ function Medicinces(props) {
         setOpen(false);
     };
 
-    const handleInsert =(values) => {
+    const handleInsert = (values) => {
         let localData = JSON.parse(localStorage.getItem("Medicinces"));
 
-        if(localData === null){
-            localStorage.setItem("Medicinces",JSON.stringify([values]))
-        }else{
+        if (localData === null) {
+            localStorage.setItem("Medicinces", JSON.stringify([values]))
+        } else {
             localData.push(values);
-            localStorage.setItem("Medicinces",JSON.stringify(localData));
+            localStorage.setItem("Medicinces", JSON.stringify(localData));
         }
 
-        console.log(values ,localData);
+        console.log(values, localData);
     }
 
     let schema = yup.object().shape({
@@ -62,63 +62,75 @@ function Medicinces(props) {
                 <Button variant="outlined" onClick={handleClickOpen}>
                     Add Medicinces
                 </Button>
-                <Dialog fullWidth open={open} onClose={handleClose}>
-                    <DialogTitle>Add Medicince</DialogTitle>
-                    <Formik values={formik}>
-                        <Form onSubmit={handleSubmit}>
-                            <DialogContent>
-                                <TextField
-                                    margin="dense"
-                                    name='name'
-                                    label="Medicine Name"
-                                    type="text"
-                                    fullWidth
-                                    variant="standard"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
-                                {errors.name && touched.name ? <p>{errors.name}</p> : ''}
-                                <TextField
-                                    margin="dense"
-                                    name='price'
-                                    label="Medicince Price"
-                                    type="text"
-                                    fullWidth
-                                    variant="standard"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
-                                 {errors.price && touched.price ? <p>{errors.price}</p> : ''}
-                                <TextField
-                                    margin="dense"
-                                    name='quntity'
-                                    label="Medicince Quntity"
-                                    type="text"
-                                    fullWidth
-                                    variant="standard"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
-                                 {errors.quntity && touched.quntity ? <p>{errors.quntity}</p> : ''}
-                                <TextField
-                                    margin="dense"
-                                    name='expiry'
-                                    label="Medicince Expiry"
-                                    type="text"
-                                    fullWidth
-                                    variant="standard"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
-                                 {errors.expiry && touched.expiry ? <p>{errors.expiry}</p> : ''}
-                                <DialogActions>
-                                    <Button onClick={handleClose}>Cancel</Button>
-                                    <Button type="submit">Submit</Button>
-                                </DialogActions>
-                            </DialogContent>
-                        </Form>
-                    </Formik>
-                </Dialog>
+                <table border="1">
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quntity</th>
+                        <th>Price</th>
+                        <th>Expiry</th>
+                    </tr>
+                </table>
+                {
+                    <Dialog fullWidth open={open} onClose={handleClose}>
+                        <DialogTitle>Add Medicince</DialogTitle>
+                        <Formik values={formik}>
+                            <Form onSubmit={handleSubmit}>
+                                <DialogContent>
+                                    return ()
+                                    <TextField
+                                        margin="dense"
+                                        name='name'
+                                        label="Medicine Name"
+                                        type="text"
+                                        fullWidth
+                                        variant="standard"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+                                    {errors.name && touched.name ? <p>{errors.name}</p> : ''}
+                                    <TextField
+                                        margin="dense"
+                                        name='price'
+                                        label="Medicince Price"
+                                        type="text"
+                                        fullWidth
+                                        variant="standard"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+                                    {errors.price && touched.price ? <p>{errors.price}</p> : ''}
+                                    <TextField
+                                        margin="dense"
+                                        name='quntity'
+                                        label="Medicince Quntity"
+                                        type="text"
+                                        fullWidth
+                                        variant="standard"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+                                    {errors.quntity && touched.quntity ? <p>{errors.quntity}</p> : ''}
+                                    <TextField
+                                        margin="dense"
+                                        name='expiry'
+                                        label="Medicince Expiry"
+                                        type="text"
+                                        fullWidth
+                                        variant="standard"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    />
+                                    {errors.expiry && touched.expiry ? <p>{errors.expiry}</p> : ''}
+                                    <DialogActions>
+                                        <Button onClick={handleClose}>Cancel</Button>
+                                        <Button type="submit">Submit</Button>
+                                    </DialogActions>
+                                </DialogContent>
+                            </Form>
+                        </Formik>
+                    </Dialog>
+                }
             </div>
         </div>
     );
