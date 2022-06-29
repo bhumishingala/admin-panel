@@ -4,7 +4,9 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import DialogTitle from '@mui/material/DialogTitle';
 import { DataGrid } from '@mui/x-data-grid';
 import * as yup from 'yup';
@@ -12,7 +14,14 @@ import { useFormik, Formik, Form } from 'formik';
 
 function Patients(props) {
     const [open, setOpen] = React.useState(false);
+    const [dopen, setDOpen] = React.useState(false);
+    const [did, setDid] = useState(0);
     const [data, setData] = useState([]);
+
+
+    const handleDClickOpen = () => {
+        setDOpen(true);
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -20,7 +29,55 @@ function Patients(props) {
 
     const handleClose = () => {
         setOpen(false);
+        setDOpen(false);
     };
+
+    let schema = yup.object().shape({
+        name: yup.string().required("Please Enter Name."),
+        message: yup.string().required("Please Any Message."),
+        date: yup.date().required("Please Enter date.")
+    });
+
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            message: '',
+            date: ''
+        },
+        validationSchema: schema,
+        onSubmit: values => {
+            handleInsert(values);
+        },
+    });
+
+    const { handleBlur, handleSubmit, handleChange, errors, touched, values } = formik;
+
+    const columns = [
+        { field: 'name', headerName: 'Name', width: 100 },
+        { field: 'message', headerName: 'Message', width: 170 },
+        { field: 'date', headerName: 'Date', width: 170 },
+        {
+            field: 'action',
+            headerName: 'Action',
+            width: 170,
+            renderCell: (params) => (
+                <>
+                    <IconButton aria-label="delete" onClick={() => handleEdit(params)}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={() => { handleDClickOpen(); setDid(params.id) }}>
+                        <DeleteIcon />
+                    </IconButton>
+                </>
+            )
+        }
+    ];
+
+    const handleEdit = (params) => {
+        handleClickOpen();
+
+        formik.setValues(params.row);
+    }
 
     const handleInsert = (values) => {
         let localData = JSON.parse(localStorage.getItem("Patients"));
@@ -44,31 +101,16 @@ function Patients(props) {
         loadData();
     }
 
-    let schema = yup.object().shape({
-        name: yup.string().required("Please Enter Name."),
-        message: yup.string().required("Please Any Message."),
-        date: yup.date().required("Please Enter date.")
-    });
+    const handleDelete = (params) => {
+        let localData = JSON.parse(localStorage.getItem("Patients"));
 
-    const formik = useFormik({
-        initialValues: {
-            name: '',
-            message: '',
-            date: ''
-        },
-        validationSchema: schema,
-        onSubmit: values => {
-            handleInsert(values);
-        },
-    });
+        let fData = localData.filter((l) => l.id !== did);
 
-    const { handleBlur, handleSubmit, handleChange, errors, touched } = formik;
-
-    const columns = [
-        { field: 'name', headerName: 'Name', width: 100 },
-        { field: 'message', headerName: 'Message', width: 170 },
-        { field: 'date', headerName: 'Date', width: 170 },
-    ];
+        localStorage.setItem("Patients", JSON.stringify(fData));
+        console.log(params.id);
+        loadData();
+        handleClose();
+    }
 
     const loadData = () => {
         let localData = JSON.parse(localStorage.getItem("Patients"));
@@ -96,12 +138,29 @@ function Patients(props) {
                         checkboxSelection
                     />
                 </div>
+                <Dialog
+                    open={dopen}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"Are You Sure Delete?"}
+                    </DialogTitle>
+                    <DialogActions>
+                        <Button onClick={handleClose}>No</Button>
+                        <Button onClick={handleDelete} autoFocus>
+                            yes
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 <Dialog fullWidth open={open} onClose={handleClose}>
                     <DialogTitle>Patients</DialogTitle>
                     <Formik values={formik}>
                         <Form onSubmit={handleSubmit}>
                             <DialogContent>
                                 <TextField
+                                    value={values.name}
                                     margin="dense"
                                     name='name'
                                     label="Patients Name"
@@ -113,6 +172,7 @@ function Patients(props) {
                                 />
                                 {errors.name && touched.name ? <p>{errors.name}</p> : ''}
                                 <TextField
+                                    value={values.message}
                                     margin="dense"
                                     name='message'
                                     label="Message"
@@ -124,6 +184,7 @@ function Patients(props) {
                                 />
                                 {errors.message && touched.message ? <p>{errors.message}</p> : ''}
                                 <TextField
+                                    value={values.date}
                                     margin="dense"
                                     name='date'
                                     type="date"
