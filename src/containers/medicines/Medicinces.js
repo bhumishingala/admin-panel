@@ -4,7 +4,8 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as yup from 'yup';
 import { useFormik, Formik, Form } from 'formik';
@@ -73,8 +74,22 @@ function Medicinces(props) {
         { field: 'name', headerName: 'Name', width: 70 },
         { field: 'price', headerName: 'Price', width: 70 },
         { field: 'quntity', headerName: 'Quntity', width: 70 },
-        { field: 'expiry', headerName: 'Expiry', width: 70 }
+        { field: 'expiry', headerName: 'Expiry', width: 70 },
+        {
+            field: 'delete',
+            headerName: 'Delete',
+            width: 170 ,
+            RandomCell: (params) => (
+                <IconButton aria-label="delete" onClick={() => handleDelete(params)}>
+                    <DeleteIcon />
+                </IconButton>
+            )
+        },
     ];
+
+    const handleDelete = (params) => {
+        console.log(params  );
+    }
 
     const LoadData = () => {
         let localData =  JSON.parse(localStorage.getItem("Medicinces"));
@@ -153,7 +168,7 @@ function Medicinces(props) {
                                 {errors.expiry && touched.expiry ? <p>{errors.expiry}</p> : ''}
                                 <DialogActions>
                                     <Button onClick={handleClose}>Cancel</Button>
-                                    <Button type="submit">Submit</Button>
+                                    <Button type="submit" >Submit</Button>
                                 </DialogActions>
                             </DialogContent>
                         </Form>

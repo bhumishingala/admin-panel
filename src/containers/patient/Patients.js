@@ -25,9 +25,9 @@ function Patients(props) {
     const handleInsert = (values) => {
         let localData = JSON.parse(localStorage.getItem("Patients"));
 
-        let id = Math.floor(Math.random()*10000);
+        let id = Math.floor(Math.random() * 10000);
         let data = {
-            id : id,
+            id: id,
             ...values
         }
 
@@ -76,9 +76,9 @@ function Patients(props) {
         setData(localData);
     }
 
-    useEffect ( () => {
+    useEffect(() => {
         loadData();
-    },[])
+    }, [])
 
     return (
         <div>
