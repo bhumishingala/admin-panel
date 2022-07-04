@@ -141,7 +141,9 @@ function Patients(props) {
     const loadData = () => {
         let localData = JSON.parse(localStorage.getItem("Patients"));
 
-        setData(localData);
+        if(localData){
+            setData(localData);
+        }
     }
 
     useEffect(() => {

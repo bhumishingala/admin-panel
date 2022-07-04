@@ -111,10 +111,10 @@ function Medicinces(props) {
     const { handleBlur, handleSubmit, handleChange, errors, touched, values } = formik;
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 70 },
-        { field: 'price', headerName: 'Price', width: 70 },
-        { field: 'quntity', headerName: 'Quntity', width: 70 },
-        { field: 'expiry', headerName: 'Expiry', width: 70 },
+        { field: 'name', headerName: 'Name', width: 170 },
+        { field: 'price', headerName: 'Price', width: 170 },
+        { field: 'quntity', headerName: 'Quntity', width: 170 },
+        { field: 'expiry', headerName: 'Expiry', width: 170 },
         {
             field: 'action',
             headerName: 'Action',
@@ -147,6 +147,7 @@ function Medicinces(props) {
     const LoadData = () => {
         let localData = JSON.parse(localStorage.getItem("Medicinces"));
 
+        
         setData(localData);
     }
 
