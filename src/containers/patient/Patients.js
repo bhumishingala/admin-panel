@@ -18,6 +18,7 @@ function Patients(props) {
     const [did, setDid] = useState(0);
     const [data, setData] = useState([]);
     const [update, setupdate] = useState(false);
+    const [serach,setSerach] = useState([ ]);
 
     const handleDClickOpen = () => {
         setDOpen(true);
@@ -79,18 +80,18 @@ function Patients(props) {
         }
     ];
 
-    const hanldeClickupdate =  (values) => {
+    const hanldeClickupdate = (values) => {
         let localData = JSON.parse(localStorage.getItem("Patients"));
 
-       let Udata = localData.map((l) => {
-            if(l.id === values.id){
+        let Udata = localData.map((l) => {
+            if (l.id === values.id) {
                 return values;
-            }else{
+            } else {
                 return l;
             }
         })
 
-        localStorage.setItem("Patients",JSON.stringify(Udata));
+        localStorage.setItem("Patients", JSON.stringify(Udata));
         console.log(values);
         handleClose();
         loadData();
@@ -141,7 +142,7 @@ function Patients(props) {
     const loadData = () => {
         let localData = JSON.parse(localStorage.getItem("Patients"));
 
-        if(localData){
+        if (localData !== null) {
             setData(localData);
         }
     }
@@ -150,6 +151,20 @@ function Patients(props) {
         loadData();
     }, [])
 
+    const handleSerach = (val) => {
+        let localData = JSON.parse(localStorage.getItem("Patients"));
+
+        const sData = localData.filter((s) => (
+            s.name.toLowerCase().includes(val.toLowerCase()) ||
+            s.message.toLowerCase().includes(val.toLowerCase()) ||
+            s.date.toString().includes(val)
+        ))
+        console.log(sData);
+        setSerach(sData);
+    }
+
+    const finalData = serach.length > 0 ? serach : data;
+
     return (
         <div>
             <h1>Patients</h1>
@@ -157,9 +172,18 @@ function Patients(props) {
                 <Button variant="outlined" onClick={handleClickOpen}>
                     Patients data add
                 </Button>
+                <TextField
+                    margin="dense"
+                    name='serach'
+                    label="Medicine Serach"
+                    type="serach"
+                    fullWidth
+                    variant="standard"
+                    onChange={(e) => handleSerach(e.target.value)}
+                />
                 <div style={{ height: 400, width: '100%' }}>
                     <DataGrid
-                        rows={data}
+                        rows={finalData}
                         columns={columns}
                         pageSize={5}
                         rowsPerPageOptions={[5]}

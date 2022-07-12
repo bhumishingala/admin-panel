@@ -18,6 +18,7 @@ function Medicinces(props) {
     const [did, setDid] = useState(0);
     const [data, setData] = useState([]);
     const [update, setUpdate] = useState(false);
+    const [serch , setSerch] = useState([ ]);
 
     const handleDClickOpen = () => {
         setDOpen(true);
@@ -68,17 +69,17 @@ function Medicinces(props) {
     const handleClickUpdate = (values) => {
         let localData = JSON.parse(localStorage.getItem("Medicinces"));
 
-        let Udata = localData.map((l) =>{
-            if(l.id === values.id){
+        let Udata = localData.map((l) => {
+            if (l.id === values.id) {
                 return values;
-            }else{
+            } else {
                 return l;
             }
         });
 
-        localStorage.setItem("Medicinces",JSON.stringify(Udata));
+        localStorage.setItem("Medicinces", JSON.stringify(Udata));
 
-        console.log(values,Udata);
+        console.log(values, Udata);
         formik.resetForm();
         handleClose();
         LoadData();
@@ -100,9 +101,9 @@ function Medicinces(props) {
         },
         validationSchema: schema,
         onSubmit: values => {
-            if(update){
+            if (update) {
                 handleClickUpdate(values);
-            }else{
+            } else {
                 handleInsert(values);
             }
         },
@@ -147,13 +148,29 @@ function Medicinces(props) {
     const LoadData = () => {
         let localData = JSON.parse(localStorage.getItem("Medicinces"));
 
-        
-        setData(localData);
+        if (localData !== null) {
+            setData(localData);
+        }
     }
 
     useEffect(() => {
         LoadData();
     }, [])
+
+    const handleSerach = (val) => {
+        let localData = JSON.parse(localStorage.getItem("Medicinces"));
+
+        let sData = localData.filter((s) => (
+            s.name.toLowerCase().includes(val.toLowerCase()) ||
+            s.price.toString().includes(val) ||
+            s.quntity.toString().includes(val) ||
+            s.expiry.toString().includes(val)
+        )) 
+
+        setSerch(sData);
+    }
+
+    const finalData = serch.length > 0 ? serch : data;
 
     return (
         <div>
@@ -162,9 +179,18 @@ function Medicinces(props) {
                 <Button variant="outlined" onClick={handleClickOpen}>
                     Add Medicinces
                 </Button>
+                <TextField
+                    margin="dense"
+                    name='serach'
+                    label="Medicine Serach"
+                    type="serach"
+                    fullWidth
+                    variant="standard"
+                    onChange={(e) => handleSerach(e.target.value)}
+                />
                 <div style={{ height: 400, width: '100%' }}>
                     <DataGrid
-                        rows={data}
+                        rows={finalData}
                         columns={columns}
                         pageSize={5}
                         rowsPerPageOptions={[5]}
@@ -243,10 +269,10 @@ function Medicinces(props) {
                                 <DialogActions>
                                     <Button onClick={handleClose}>Cancel</Button>
                                     {
-                                        update ? 
-                                        <Button type="submit" >Update</Button>
-                                        : 
-                                        <Button type="submit" >Submit</Button>
+                                        update ?
+                                            <Button type="submit" >Update</Button>
+                                            :
+                                            <Button type="submit" >Submit</Button>
                                     }
                                 </DialogActions>
                             </DialogContent>
