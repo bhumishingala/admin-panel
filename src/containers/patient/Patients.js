@@ -11,8 +11,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { DataGrid } from '@mui/x-data-grid';
 import * as yup from 'yup';
 import { useFormik, Formik, Form } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Patients(props) {
+    const c = useSelector(state => state.counter);
     const [open, setOpen] = React.useState(false);
     const [dopen, setDOpen] = React.useState(false);
     const [did, setDid] = useState(0);
@@ -167,7 +169,7 @@ function Patients(props) {
 
     return (
         <div>
-            <h1>Patients</h1>
+            <h1>Patients  :  {c.counter}</h1>
             <div>
                 <Button variant="outlined" onClick={handleClickOpen}>
                     Patients data add

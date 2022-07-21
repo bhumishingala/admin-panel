@@ -3,5 +3,5 @@ import { counterReduex } from "./Counter_reduex";
 
 
 export const rootCounter = combineReducers ({
-    counter : counterReduex
+    counter : counterReduex,
 })

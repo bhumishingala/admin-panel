@@ -83,7 +83,8 @@ export default function Layout({ children }) {
     const data = [
         { lable: 'medicines', icon: <MedicationIcon />, to: "/medicines" },
         { lable: 'patients', icon: <PersonIcon />, to: "/patients" },
-        { lable: 'doctors', icon: <MedicationLiquidIcon />, to: "/doctors" }
+        { lable: 'doctors', icon: <MedicationLiquidIcon />, to: "/doctors" },
+        { lable: 'counter', icon: <MedicationLiquidIcon />, to: "/counter" }
     ]
 
     return (
