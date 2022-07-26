@@ -1,24 +1,39 @@
 {
-  "posts": [
+  "Medicices": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "name" : "ABC",
+      "price" : 100,
+      "quntity" : 200,
+      "expiry": 2220
+    },
+    {
+      "id": 2,
+      "name" : "XYZ",
+      "price" : 100,
+      "quntity" : 200,
+      "expiry": 2220
     },
     {
       "id": 3,
-      "title": "json-server",
-      "author": "typicode"
+      "name" : "PQR",
+      "price" : 100,
+      "quntity" : 200,
+      "expiry": 2220
     },
     {
       "id": 4,
-      "title": "json-server",
-      "author": "typicode"
+      "name" : "MNP",
+      "price" : 100,
+      "quntity" : 200,
+      "expiry": 2220
     },
     {
-      "id": 8,
-      "title": "title1",
-      "author": "amit"
+      "id": 5,
+      "name" : "DEF",
+      "price" : 100,
+      "quntity" : 200,
+      "expiry": 2220
     }
   ],
   "comments": [

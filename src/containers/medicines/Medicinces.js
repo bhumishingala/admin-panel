@@ -11,6 +11,8 @@ import * as yup from 'yup';
 import { useFormik, Formik, Form } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMedicinces, getServerData } from '../../reduex/action/Medicinces_action';
 
 function Medicinces(props) {
     const [open, setOpen] = React.useState(false);
@@ -153,8 +155,12 @@ function Medicinces(props) {
         }
     }
 
+    const dispatch = useDispatch();
+    const medicinces = useSelector(state => state.medicinces)
+
     useEffect(() => {
-        LoadData();
+        //LoadData();
+        dispatch(getMedicinces());
     }, [])
 
     const handleSerach = (val) => {
@@ -190,7 +196,7 @@ function Medicinces(props) {
                 />
                 <div style={{ height: 400, width: '100%' }}>
                     <DataGrid
-                        rows={finalData}
+                        rows={medicinces.medicinces}
                         columns={columns}
                         pageSize={5}
                         rowsPerPageOptions={[5]}
