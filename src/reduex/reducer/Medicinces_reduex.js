@@ -16,6 +16,19 @@ export const medicincesReduex = (state = initval,action) => {
                 medicinces : action.payload,
                 error : ''
             }
+        case ActionType.LOADING_MEDICINCES :
+            return {
+                ...state,
+                isLoading : true,
+                error : ''
+            }
+        case ActionType.ERROR_MEDICINCES :
+            return {
+                ...state,
+                isLoading : false,
+                medicinces : [],
+                error : action.payload
+            }
         default :
             return state;
     }
