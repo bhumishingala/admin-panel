@@ -2,70 +2,84 @@
   "Medicices": [
     {
       "id": 1,
-      "name" : "ABC",
-      "price" : 100,
-      "quntity" : 200,
+      "name": "ABC",
+      "price": 100,
+      "quntity": 200,
       "expiry": 2220
     },
     {
       "id": 2,
-      "name" : "XYZ",
-      "price" : 100,
-      "quntity" : 200,
+      "name": "XYZ",
+      "price": 100,
+      "quntity": 200,
       "expiry": 2220
     },
     {
       "id": 3,
-      "name" : "PQR",
-      "price" : 100,
-      "quntity" : 200,
+      "name": "PQR",
+      "price": 100,
+      "quntity": 200,
       "expiry": 2220
     },
     {
       "id": 4,
-      "name" : "MNP",
-      "price" : 100,
-      "quntity" : 200,
+      "name": "MNP",
+      "price": 100,
+      "quntity": 200,
       "expiry": 2220
     },
     {
       "id": 5,
-      "name" : "DEF",
-      "price" : 100,
-      "quntity" : 200,
+      "name": "DEF",
+      "price": 100,
+      "quntity": 200,
       "expiry": 2220
+    },
+    {
+      "id": 52,
+      "name": "smruti",
+      "price": "56",
+      "quntity": "202",
+      "expiry": "2021"
+    },
+    {
+      "id": 357,
+      "name": "C",
+      "price": "45",
+      "quntity": "456",
+      "expiry": "2025"
     }
   ],
   "Patients": [
     {
       "id": 1,
-      "name" : "ABC",
-      "message" : "fvfhvgh cdhv",
-      "date" : "2022-08-12"
+      "name": "ABC",
+      "message": "fvfhvgh cdhv",
+      "date": "2022-08-12"
     },
     {
       "id": 2,
-      "name" : "DEF",
-      "message" : "fvfhvgh cdhv",
-      "date" : "2019-05-24"
+      "name": "DEF",
+      "message": "fvfhvgh cdhv",
+      "date": "2019-05-24"
     },
     {
       "id": 3,
-      "name" : "HIJ",
-      "message" : "fvfhvgh cdhv",
-      "date" : "2025-01-02"
+      "name": "HIJ",
+      "message": "fvfhvgh cdhv",
+      "date": "2025-01-02"
     },
     {
       "id": 4,
-      "name" : "MNP",
-      "message" : "fvfhvgh cdhv",
-      "date" : "20201-12-12"
+      "name": "MNP",
+      "message": "fvfhvgh cdhv",
+      "date": "20201-12-12"
     },
     {
       "id": 5,
-      "name" : "XYZ",
-      "message" : "fvfhvgh cdhv",
-      "date" : "2015-10-28"
+      "name": "XYZ",
+      "message": "fvfhvgh cdhv",
+      "date": "2015-10-28"
     }
   ],
   "profile": {

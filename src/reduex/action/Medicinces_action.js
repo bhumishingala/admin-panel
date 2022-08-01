@@ -26,7 +26,28 @@ export const getMedicinces = () => (dispatch) => {
                 .catch((error) => dispatch(errorMedicinces(error.message)));
         }, 2000);
     } catch (error) {
-        console.log(error);
+        dispatch(errorMedicinces(error.message))
+    }
+}
+
+export const addMedicinces = (data) => (dispatch) => {
+    try {
+        fetch(BASED_URL + "Medicices", {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                dispatch({type : ActionType.ADD_MEDICINCES,payload : data});
+            })
+            .catch((error) => {
+                dispatch(errorMedicinces(error.message));
+            });
+    } catch (error) {
+        dispatch(errorMedicinces(error.message));
     }
 }
 
@@ -35,6 +56,6 @@ export const LoadingMedicinces = () => (dispatch) => {
 }
 
 export const errorMedicinces = (error) => (dispatch) => {
-    dispatch({type : ActionType.ERROR_MEDICINCES,payload : error});
+    dispatch({ type: ActionType.ERROR_MEDICINCES, payload: error });
 }
 

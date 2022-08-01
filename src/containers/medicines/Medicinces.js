@@ -12,7 +12,7 @@ import { useFormik, Formik, Form } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMedicinces, getServerData } from '../../reduex/action/Medicinces_action';
+import { addMedicinces, getMedicinces, getServerData } from '../../reduex/action/Medicinces_action';
 
 function Medicinces(props) {
     const [open, setOpen] = React.useState(false);
@@ -54,14 +54,16 @@ function Medicinces(props) {
             ...values
         }
 
+        dispatch(addMedicinces(data));
+
         console.log(id);
 
-        if (localData === null) {
-            localStorage.setItem("Medicinces", JSON.stringify([data]))
-        } else {
-            localData.push(data);
-            localStorage.setItem("Medicinces", JSON.stringify(localData));
-        }
+        // if (localData === null) {
+        //     localStorage.setItem("Medicinces", JSON.stringify([data]))
+        // } else {
+        //     localData.push(data);
+        //     localStorage.setItem("Medicinces", JSON.stringify(localData));
+        // }
 
         handleClose();
         formik.resetForm();
@@ -159,7 +161,6 @@ function Medicinces(props) {
     const medicinces = useSelector(state => state.medicinces)
 
     useEffect(() => {
-        //LoadData();
         dispatch(getMedicinces());
     }, [])
 
