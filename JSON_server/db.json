@@ -36,11 +36,36 @@
       "expiry": 2220
     }
   ],
-  "comments": [
+  "Patients": [
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "name" : "ABC",
+      "message" : "fvfhvgh cdhv",
+      "date" : "2022-08-12"
+    },
+    {
+      "id": 2,
+      "name" : "DEF",
+      "message" : "fvfhvgh cdhv",
+      "date" : "2019-05-24"
+    },
+    {
+      "id": 3,
+      "name" : "HIJ",
+      "message" : "fvfhvgh cdhv",
+      "date" : "2025-01-02"
+    },
+    {
+      "id": 4,
+      "name" : "MNP",
+      "message" : "fvfhvgh cdhv",
+      "date" : "20201-12-12"
+    },
+    {
+      "id": 5,
+      "name" : "XYZ",
+      "message" : "fvfhvgh cdhv",
+      "date" : "2015-10-28"
     }
   ],
   "profile": {
