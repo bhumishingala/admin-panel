@@ -12,7 +12,7 @@ import { useFormik, Formik, Form } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMedicinces, getMedicinces, getServerData } from '../../reduex/action/Medicinces_action';
+import { addMedicinces, deleteMedicinces, getMedicinces, getServerData, updateMedicinces } from '../../reduex/action/Medicinces_action';
 
 function Medicinces(props) {
     const [open, setOpen] = React.useState(false);
@@ -71,19 +71,21 @@ function Medicinces(props) {
     }
 
     const handleClickUpdate = (values) => {
-        let localData = JSON.parse(localStorage.getItem("Medicinces"));
+        // let localData = JSON.parse(localStorage.getItem("Medicinces"));
 
-        let Udata = localData.map((l) => {
-            if (l.id === values.id) {
-                return values;
-            } else {
-                return l;
-            }
-        });
+        // let Udata = localData.map((l) => {
+        //     if (l.id === values.id) {
+        //         return values;
+        //     } else {
+        //         return l;
+        //     }
+        // });
 
-        localStorage.setItem("Medicinces", JSON.stringify(Udata));
+        // localStorage.setItem("Medicinces", JSON.stringify(Udata));
 
-        console.log(values, Udata);
+        dispatch(updateMedicinces(values));
+
+        console.log(values);
         formik.resetForm();
         handleClose();
         LoadData();
@@ -138,13 +140,15 @@ function Medicinces(props) {
     ];
 
     const handleDelete = (params) => {
-        let localData = JSON.parse(localStorage.getItem("Medicinces"));
+        // let localData = JSON.parse(localStorage.getItem("Medicinces"));
 
-        let fData = localData.filter((l) => l.id !== did);
+        // let fData = localData.filter((l) => l.id !== did);
 
-        localStorage.setItem("Medicinces", JSON.stringify(fData));
+        // localStorage.setItem("Medicinces", JSON.stringify(fData));
 
-        console.log(params.id, localData);
+        dispatch(deleteMedicinces(did));
+
+        // console.log(params.id);
         handleClose();
         LoadData();
     }

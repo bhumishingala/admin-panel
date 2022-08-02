@@ -1,53 +1,11 @@
 {
   "Medicices": [
     {
-      "id": 1,
-      "name": "ABC",
-      "price": 100,
-      "quntity": 200,
-      "expiry": 2220
-    },
-    {
-      "id": 2,
-      "name": "XYZ",
-      "price": 100,
-      "quntity": 200,
-      "expiry": 2220
-    },
-    {
-      "id": 3,
-      "name": "PQR",
-      "price": 100,
-      "quntity": 200,
-      "expiry": 2220
-    },
-    {
-      "id": 4,
-      "name": "MNP",
-      "price": 100,
-      "quntity": 200,
-      "expiry": 2220
-    },
-    {
-      "id": 5,
-      "name": "DEF",
-      "price": 100,
-      "quntity": 200,
-      "expiry": 2220
-    },
-    {
-      "id": 52,
-      "name": "smruti",
-      "price": "56",
-      "quntity": "202",
-      "expiry": "2021"
-    },
-    {
-      "id": 357,
-      "name": "C",
+      "id": 99,
+      "name": "A",
       "price": "45",
       "quntity": "456",
-      "expiry": "2025"
+      "expiry": "2023"
     }
   ],
   "Patients": [
@@ -80,6 +38,18 @@
       "name": "XYZ",
       "message": "fvfhvgh cdhv",
       "date": "2015-10-28"
+    },
+    {
+      "id": 7109,
+      "name": "smruti",
+      "message": "hgiurytgurhfjhrdeuy",
+      "date": "2022-08-18"
+    },
+    {
+      "id": 2039,
+      "name": "D",
+      "message": "dbhedgfdyehgfr",
+      "date": "2022-09-02"
     }
   ],
   "profile": {
