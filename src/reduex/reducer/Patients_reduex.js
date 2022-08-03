@@ -36,6 +36,13 @@ export const Patientsreduex = (state = intival, action) => {
                 patients: state.patients.concat(action.payload),
                 error: ''
             }
+        case ActionType.DELETE_PATIENTS:
+            return {
+                ...state,
+                isLoading: false,
+                patients: state.patients.filter((p) => p.id !== action.payload),
+                error: ''
+            }
         default:
             return state;
     }

@@ -12,7 +12,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import * as yup from 'yup';
 import { useFormik, Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMedicinces, addPatients, getPatientsData } from '../../reduex/action/Patients_action';
+import { addMedicinces, addPatients, deletePatients, getPatientsData } from '../../reduex/action/Patients_action';
 
 function Patients(props) {
     const c = useSelector(state => state.counter);
@@ -134,12 +134,14 @@ function Patients(props) {
     }
 
     const handleDelete = (params) => {
-        let localData = JSON.parse(localStorage.getItem("Patients"));
+        // let localData = JSON.parse(localStorage.getItem("Patients"));
 
-        let fData = localData.filter((l) => l.id !== did);
+        // let fData = localData.filter((l) => l.id !== did);
 
-        localStorage.setItem("Patients", JSON.stringify(fData));
-        console.log(params.id);
+        // localStorage.setItem("Patients", JSON.stringify(fData));
+        dispatch(deletePatients(did));
+
+        // console.log(params.id);
         loadData();
         handleClose();
     }

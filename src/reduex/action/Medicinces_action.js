@@ -84,17 +84,21 @@ export const deleteMedicinces = (id) => (dispatch) => {
                 })
             .then((response) => response.json())
             .then(dispatch({ type: ActionType.DELETE_MEDICINCES, payload: id }))
-        // .then((error) => dispatch(errorMedicinces(error.message)))
     } catch (error) {
         dispatch(errorMedicinces(error.message));
     }
     console.log(id);
 }
 
-export const updateMedicinces = (values) => (dispatch) => {
+export const updateMedicinces = (data,values) => (dispatch) => {
+    console.log(data);
     try {
         fetch(BASED_URL + "Medicices/" + values, {
             method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
         })
             .then(response => {
                 if (response.ok) {
@@ -112,6 +116,7 @@ export const updateMedicinces = (values) => (dispatch) => {
             .then((response) => response.json())
             .then((data) => {
                 dispatch({ type: ActionType.UPDATE_MEDICINCES, payload: data })
+                console.log(data);
             })
             .catch((error) => {
                 dispatch(errorMedicinces(error.message));

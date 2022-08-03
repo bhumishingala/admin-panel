@@ -118,7 +118,7 @@ function Medicinces(props) {
     const { handleBlur, handleSubmit, handleChange, errors, touched, values } = formik;
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 170 },
+        { field: 'name', headerName: 'Name', width: 250 },
         { field: 'price', headerName: 'Price', width: 170 },
         { field: 'quntity', headerName: 'Quntity', width: 170 },
         { field: 'expiry', headerName: 'Expiry', width: 170 },
