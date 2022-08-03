@@ -6,21 +6,24 @@ import Doctors from './containers/doctors/Doctors';
 import { Provider } from 'react-redux';
 import { conFigureStore } from './reduex/Store';
 import Counter from './containers/counter/Counter';
+import { PersistGate } from 'redux-persist/integration/react';
 
 function App() {
-  const store = conFigureStore();
+  const {store , persistor} = conFigureStore();
 
   return (
     <>
       <Provider store={store}>
-        <Layout>
-          <Switch>
-            <Route path={"/medicines"} exact component={Medicinces} />
-            <Route path={"/patients"} exact component={Patients} />
-            <Route path={"/doctors"} exact component={Doctors} />
-            <Route path={"/counter"} exact component={Counter} />
-          </Switch>
-        </Layout>
+        <PersistGate loading={null} persistor={persistor}>
+          <Layout>
+            <Switch>
+              <Route path={"/medicines"} exact component={Medicinces} />
+              <Route path={"/patients"} exact component={Patients} />
+              <Route path={"/doctors"} exact component={Doctors} />
+              <Route path={"/counter"} exact component={Counter} />
+            </Switch>
+          </Layout>
+        </PersistGate>
       </Provider>
     </>
   );
