@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
-import { addDoctorsData, deleteDotorsData, getDoctorsData } from '../../reduex/action/Doctors_action';
+import { addDoctorsData, deleteDotorsData, getDoctorsData, updateDotoreData } from '../../reduex/action/Doctors_action';
 
 function Doctors(props) {
     const [open, setOpen] = React.useState(false);
@@ -125,17 +125,19 @@ function Doctors(props) {
     }
 
     const handleClickUpdate = () => {
-        let localData = JSON.parse(localStorage.getItem("doctors"));
+        // let localData = JSON.parse(localStorage.getItem("doctors"));
 
-        let uData = localData.map((u) => {
-            if (u.id === values.id) {
-                return values;
-            } else {
-                return u;
-            }
-        })
-        console.log(uData);
-        localStorage.setItem("doctors", JSON.stringify(uData));
+        // let uData = localData.map((u) => {
+        //     if (u.id === values.id) {
+        //         return values;
+        //     } else {
+        //         return u;
+        //     }
+        // })
+        // console.log(uData);
+        // localStorage.setItem("doctors", JSON.stringify(uData));
+
+        dispatch(updateDotoreData(values));
         handleClose();
         LoadData();
     }

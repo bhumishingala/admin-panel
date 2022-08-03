@@ -7,7 +7,7 @@ const initval = {
 }
 
 export const medicincesReduex = (state = initval, action) => {
-    console.log(state.medicinces,action, action.type);
+    console.log(action, action.type);
     switch (action.type) {
         case ActionType.GET_VALUE:
             return {
@@ -48,7 +48,7 @@ export const medicincesReduex = (state = initval, action) => {
                 ...state,
                 isLoading: false,
                 medicinces: state.medicinces.map((u) => {
-                    if (u.name === action.payload) {
+                    if (u.id === action.payload.id) {
                         return action.payload;
                     } else {
                         return u;

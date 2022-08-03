@@ -31,31 +31,35 @@ export const getPatientsData = () => (dispatch) => {
 }
 
 export const addPatients = (data) => (dispatch) => {
-    fetch(BASED_URL + 'Patients', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-        .then(response => {
-            if (response.ok) {
-                return response;
-            } else {
-                var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                error.response = response;
-                throw error;
-            }
-        },
-            error => {
-                var errmess = new Error(error.message);
-                throw errmess;
-            })
-        .then((response) => response.json())
-        .then((data) => dispatch({ type: Actiontype.ADD_PATIENTS, payload: data }))
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+    try{
+        fetch(BASED_URL + 'Patients', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            },
+                error => {
+                    var errmess = new Error(error.message);
+                    throw errmess;
+                })
+            .then((response) => response.json())
+            .then((data) => dispatch({ type: Actiontype.ADD_PATIENTS, payload: data }))
+            .catch((error) => {
+               dispatch(error_Patients(error.message))
+            });
+    }catch(error){
+        dispatch(error_Patients(error.message))
+    }
 }
 
 export const deletePatients = (id) => (dispatch) => {
@@ -79,6 +83,38 @@ export const deletePatients = (id) => (dispatch) => {
             .then(dispatch({ type: Actiontype.DELETE_PATIENTS, payload: id }))
     } catch (error) {
         dispatch(error_Patients(error.message))
+    }
+}
+
+export const updatePatients = (data) => (dispatch) => {
+    try {
+        fetch(BASED_URL + 'Patients/' + data.id, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            },
+                error => {
+                    var errmess = new Error(error.message);
+                    throw errmess;
+                })
+            .then((response) => response.json())
+            .then((data) => dispatch({ type: Actiontype.UPDATE_PATIENTS, payload : data }))
+            .catch((error) => {
+                dispatch(error_Patients(error.message))
+             });
+    } catch (error) {
+        dispatch(error_Patients(error.message));
     }
 }
 

@@ -9,7 +9,7 @@
     },
     {
       "id": 997,
-      "name": "riddhi13",
+      "name": "riddhi",
       "price": "20",
       "quntity": "2565",
       "expiry": "2020"
@@ -18,7 +18,7 @@
       "id": 882,
       "name": "bhumi13",
       "price": "800",
-      "quntity": "600",
+      "quntity": "1000000",
       "expiry": "2025"
     },
     {
@@ -60,13 +60,13 @@
   "Patients": [
     {
       "id": 3,
-      "name": "HIJ",
+      "name": "H123",
       "message": "fvfhvgh cdhv",
       "date": "2025-01-02"
     },
     {
       "id": 4,
-      "name": "MNP",
+      "name": "MNP456",
       "message": "fvfhvgh cdhv",
       "date": "20201-12-12"
     },
@@ -79,14 +79,8 @@
   ],
   "doctors": [
     {
-      "id": "1",
-      "name": "typicode",
-      "email": "123@gmail.com",
-      "phone": "8799279802"
-    },
-    {
       "id": "2",
-      "name": "typicode",
+      "name": "typicode123",
       "email": "123@gmail.com",
       "phone": "8799279802"
     },

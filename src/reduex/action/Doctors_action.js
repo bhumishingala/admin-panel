@@ -91,6 +91,40 @@ export const deleteDotorsData = (id) => (dispatch) => {
     }
 }
 
+export const updateDotoreData = (data) => (dispatch) => {
+    try {
+        fetch(BASED_URL + 'doctors/' + data.id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            },
+                error => {
+                    var errmess = new Error(error.message);
+                    throw errmess;
+                })
+            .then((response) => response.json())
+            .then((data) => {
+                dispatch({ type: ActionType.UPDATE_DOCTORSDATA, payload: data });
+            })
+            .catch((error) => {
+                dispatch(error_doctors(error.message));
+            });
+    } catch (error) {
+        dispatch(error_doctors(error.message));
+    }
+}
+
 export const loading_doctors = () => (dispatch) => {
     dispatch({ type: ActionType.LOADING_DOCTORSDATA })
 }

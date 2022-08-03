@@ -43,6 +43,19 @@ export const Patientsreduex = (state = intival, action) => {
                 patients: state.patients.filter((p) => p.id !== action.payload),
                 error: ''
             }
+        case ActionType.UPDATE_PATIENTS :
+            return {
+                ...state,
+                isLoading : false,
+                patients : state.patients.map((pu) =>{
+                    if(pu.id === action.payload.id){
+                        return action.payload;
+                    }else{
+                        return pu;
+                    }
+                }),
+                error : ''
+            }
         default:
             return state;
     }

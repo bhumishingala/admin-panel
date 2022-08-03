@@ -7,7 +7,7 @@ const initval = {
 }
 
 export const doctorsreducer = (state = initval , action) => {
-    console.log(state.doctors,action.type,action);
+    // console.log(state.doctors,action.type,action);
     switch(action.type) {
         case ActionType.GET_DOCTORSDATA :
             return {
@@ -42,6 +42,18 @@ export const doctorsreducer = (state = initval , action) => {
                 isLoading : false,
                 doctors : state.doctors.filter((f) => f.id !== action.payload),
                 error : ''
+            }
+        case ActionType.UPDATE_DOCTORSDATA :
+            return {
+                ...state,
+                isLoading : false,
+                doctors : state.doctors.map((du) => {
+                    if(du.id === action.payload.id){
+                        return action.payload;
+                    }else{
+                        return du;
+                    }
+                })
             }
         default :
             return state;

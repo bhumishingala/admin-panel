@@ -90,10 +90,10 @@ export const deleteMedicinces = (id) => (dispatch) => {
     console.log(id);
 }
 
-export const updateMedicinces = (data,values) => (dispatch) => {
+export const updateMedicinces = (data) => (dispatch) => {
     console.log(data);
     try {
-        fetch(BASED_URL + "Medicices/" + values, {
+        fetch(BASED_URL + "Medicices/" + data.id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
