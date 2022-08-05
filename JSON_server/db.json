@@ -30,7 +30,7 @@
     },
     {
       "id": 523,
-      "name": "shingalabhumi0000000000000000000000000000000000000000",
+      "name": "shingalabhumi",
       "price": "78",
       "quntity": "500",
       "expiry": "2025"
@@ -72,7 +72,7 @@
     },
     {
       "id": 2039,
-      "name": "D",
+      "name": "D123",
       "message": "dbhedgfdyehgfr",
       "date": "2022-09-02"
     }
@@ -80,7 +80,7 @@
   "doctors": [
     {
       "id": "2",
-      "name": "typicode123",
+      "name": "T",
       "email": "123@gmail.com",
       "phone": "8799279802"
     },
