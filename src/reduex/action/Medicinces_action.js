@@ -37,9 +37,9 @@ export const getMedicinces = () => (dispatch) => {
 export const addMedicinces = (data) => (dispatch) => {
     try {
 
-        postMedicinces()
+        postMedicinces(data)
             .then((data) => {
-                dispatch({ type: ActionType.ADD_MEDICINCES, payload: data });
+                dispatch({ type: ActionType.ADD_MEDICINCES, payload: data.data });
             })
             .catch((error) => {
                 dispatch(errorMedicinces(error.message));

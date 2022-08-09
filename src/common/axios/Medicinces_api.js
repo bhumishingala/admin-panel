@@ -5,6 +5,6 @@ export const getAllMedicinces = () => {
     return sendRequest('Medicices')
 }
 
-export const postMedicinces = () => {
-    return postRequest('Medicices')
+export const postMedicinces = (data) => {
+    return postRequest('Medicices' ,data)
 }
