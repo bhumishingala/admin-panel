@@ -1,8 +1,8 @@
-import { deleteRequest, postRequest, putRequest, sendRequest } from "../request"
+import { deleteRequest, getRequest, postRequest, putRequest } from "../request"
 
 
 export const getAllMedicincesData = () => {
-    return sendRequest('Medicices')
+    return getRequest('Medicices')
 }
 
 export const postMedicincesData = (data) => {

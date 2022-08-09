@@ -44,14 +44,8 @@
   ],
   "doctors": [
     {
-      "id": "2",
-      "name": "typicode123",
-      "email": "123@gmail.com",
-      "phone": "8799279802"
-    },
-    {
       "id": "3",
-      "name": "typicode",
+      "name": "typicode1123",
       "email": "123@gmail.com",
       "phone": "8799279802"
     },
@@ -68,14 +62,8 @@
       "phone": "8799279802"
     },
     {
-      "id": 9457,
-      "name": "bhumi shingala",
-      "email": "shingalabhumi28@gmail.com",
-      "phone": "9409079740"
-    },
-    {
       "id": 8063,
-      "name": "mansi",
+      "name": "arpit",
       "email": "manish@gamil.com",
       "phone": "9409079740"
     }
