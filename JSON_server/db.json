@@ -1,43 +1,8 @@
 {
   "Medicices": [
     {
-      "id": 373,
-      "name": "ABCD",
-      "price": "78",
-      "quntity": "500",
-      "expiry": "2025"
-    },
-    {
-      "id": 997,
-      "name": "riddhi",
-      "price": "20",
-      "quntity": "2565",
-      "expiry": "2020"
-    },
-    {
-      "id": 882,
-      "name": "bhumi13",
-      "price": "800",
-      "quntity": "1000000",
-      "expiry": "2025"
-    },
-    {
-      "id": 489,
-      "name": "shingalabhumi",
-      "price": "78",
-      "quntity": "500",
-      "expiry": "2021"
-    },
-    {
-      "id": 523,
-      "name": "shingalabhumi",
-      "price": "78",
-      "quntity": "500",
-      "expiry": "2025"
-    },
-    {
       "id": 432,
-      "name": "bhumi123456",
+      "name": "bhumi",
       "price": "78",
       "quntity": "500",
       "expiry": "2025"
