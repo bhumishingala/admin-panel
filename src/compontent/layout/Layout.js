@@ -84,7 +84,8 @@ export default function Layout({ children }) {
         { lable: 'medicines', icon: <MedicationIcon />, to: "/medicines" },
         { lable: 'patients', icon: <PersonIcon />, to: "/patients" },
         { lable: 'doctors', icon: <MedicationLiquidIcon />, to: "/doctors" },
-        { lable: 'counter', icon: <MedicationLiquidIcon />, to: "/counter" }
+        { lable: 'counter', icon: <MedicationLiquidIcon />, to: "/counter" },
+        { lable: 'promise Example', icon: <MedicationLiquidIcon />, to: "/promise_Exmaple" },
     ]
 
     return (
