@@ -1,11 +1,13 @@
+import { addDoc, collection } from "firebase/firestore";
 import { addAllDoctorsdata, deleteAllDotorsData, getAllDoctorsData, updateAllDoctorsdata } from "../../common/axios/Doctors_api";
 import { BASED_URL } from "../../fetch/BasedUrl";
+import { db } from "../../firebase";
 import * as ActionType from '../ActionType';
 
 export const getDoctorsData = () => (dispatch) => {
-    dispatch(loading_doctors());
     try {
         setTimeout(function () {
+            dispatch(loading_doctors());
             getAllDoctorsData()
                 .then((data) => dispatch({ type: ActionType.GET_DOCTORSDATA, payload: data.data }))
                 .catch((error) => dispatch(error_doctors(error.message)))
@@ -32,15 +34,18 @@ export const getDoctorsData = () => (dispatch) => {
     }
 }
 
-export const addDoctorsData = (data) => (dispatch) => {
+export const addDoctorsData = (data) => async(dispatch) => {
     try {
-        addAllDoctorsdata(data)
-            .then((data) => {
-                dispatch({ type: ActionType.ADD_DOCTORSDATA, payload: data.data });
-            })
-            .catch((error) => {
-                dispatch(error_doctors(error.message));
-            });
+        const docRef = await addDoc(collection(db, "Doctors"), data);
+          console.log("Document written with ID: ", docRef.id);
+          dispatch({type : ActionType.ADD_DOCTORSDATA,payload : {id : docRef.id,...data}})
+        // addAllDoctorsdata(data)
+            // .then((data) => {
+            //     dispatch({ type: ActionType.ADD_DOCTORSDATA, payload: data.data });
+            // })
+            // .catch((error) => {
+            //     dispatch(error_doctors(error.message));
+            // });
         // fetch(BASED_URL + "doctors", {
         //     method: "POST",
         //     headers: {

@@ -64,12 +64,12 @@ function Doctors(props) {
     const handleInsert = (values) => {
         // let localData = JSON.parse(localStorage.getItem("doctors"));
 
-        let id = Math.floor(Math.random() * 10000);
+        // let id = Math.floor(Math.random() * 10000);
 
-        let data = {
-            id: id,
-            ...values
-        }
+        // let data = {
+        //     id: id,
+        //     ...values
+        // }
 
         // if (localData === null) {
         //     localStorage.setItem("doctors", JSON.stringify([data]))
@@ -77,8 +77,8 @@ function Doctors(props) {
         //     localData.push(data);
         //     localStorage.setItem("doctors", JSON.stringify(localData))
         // }
-        // console.log(data);
-        dispatch(addDoctorsData(data));
+        // console.log(data);  
+        dispatch(addDoctorsData(values));
 
         handleClose();
         LoadData();
