@@ -172,6 +172,8 @@ function Doctors(props) {
         dispatch(getDoctorsData());
     }, [])
 
+    // console.log(errors);
+
 
     return (
         <div>

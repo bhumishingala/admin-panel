@@ -1,79 +1,30 @@
-import { addDoc, collection } from "firebase/firestore";
+import { async } from "@firebase/util";
+import { addDoc, collection, doc, getDocs } from "firebase/firestore";
 import { addAllDoctorsdata, deleteAllDotorsData, getAllDoctorsData, updateAllDoctorsdata } from "../../common/axios/Doctors_api";
 import { BASED_URL } from "../../fetch/BasedUrl";
 import { db } from "../../firebase";
 import * as ActionType from '../ActionType';
 
-export const getDoctorsData = () => (dispatch) => {
+export const getDoctorsData = () => async (dispatch) => {
     try {
-        setTimeout(function () {
-            dispatch(loading_doctors());
-            getAllDoctorsData()
-                .then((data) => dispatch({ type: ActionType.GET_DOCTORSDATA, payload: data.data }))
-                .catch((error) => dispatch(error_doctors(error.message)))
-            // fetch(BASED_URL + 'doctors')
-            //     .then(response => {
-            //         if (response.ok) {
-            //             return response;
-            //         } else {
-            //             var error = new Error('Error ' + response.status + ': ' + response.statusText);
-            //             error.response = response;
-            //             throw error;
-            //         }
-            //     },
-            //         error => {
-            //             var errmess = new Error(error.message);
-            //             throw errmess;
-            //         })
-            //     .then((response) => response.json())
-            //     .then((data) => dispatch({ type: ActionType.GET_DOCTORSDATA, payload: data }))
-            //     .catch((error) => dispatch(error_doctors(error.message)))
-        }, 2000);
+        const querySnapshot = await getDocs(collection(db, "Doctors"));
+        let data = [];
+        querySnapshot.forEach((doc) => {
+            data.push({id : doc.id, ... doc.data()})
+            console.log(`${doc.id} => ${doc.data()}`);
+            console.log(data);
+        });
+        dispatch({type : ActionType.GET_DOCTORSDATA , payload : data})
     } catch (error) {
         dispatch(error_doctors(error.message))
     }
 }
 
-export const addDoctorsData = (data) => async(dispatch) => {
+export const addDoctorsData = (data) => async (dispatch) => {
     try {
         const docRef = await addDoc(collection(db, "Doctors"), data);
-          console.log("Document written with ID: ", docRef.id);
-          dispatch({type : ActionType.ADD_DOCTORSDATA,payload : {id : docRef.id,...data}})
-        // addAllDoctorsdata(data)
-            // .then((data) => {
-            //     dispatch({ type: ActionType.ADD_DOCTORSDATA, payload: data.data });
-            // })
-            // .catch((error) => {
-            //     dispatch(error_doctors(error.message));
-            // });
-        // fetch(BASED_URL + "doctors", {
-        //     method: "POST",
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(data),
-
-        // })
-        //     .then(response => {
-        //         if (response.ok) {
-        //             return response;
-        //         } else {
-        //             var error = new Error('Error ' + response.status + ': ' + response.statusText);
-        //             error.response = response;
-        //             throw error;
-        //         }
-        //     },
-        //         error => {
-        //             var errmess = new Error(error.message);
-        //             throw errmess;
-        //         })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         dispatch({ type: ActionType.ADD_DOCTORSDATA, payload: data });
-        //     })
-        //     .catch((error) => {
-        //         dispatch(error_doctors(error.message));
-        //     });
+        console.log("Document written with ID: ", docRef.id);
+        dispatch({ type: ActionType.ADD_DOCTORSDATA, payload: { id: docRef.id, ...data } })
     } catch (error) {
         dispatch(error_doctors(error.message));
     }
