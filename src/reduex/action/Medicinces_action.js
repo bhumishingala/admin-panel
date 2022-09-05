@@ -1,6 +1,7 @@
 import { deleteMedicincesData, getAllMedicincesData, postMedicincesData, updateMedicincesData } from "../../common/axios/Medicinces_api";
-import { BASED_URL } from "../../fetch/BasedUrl";
+import { collection, addDoc } from "firebase/firestore";
 import * as ActionType from "../ActionType";
+import { db } from "../../firebase";
 
 
 export const getMedicinces = () => (dispatch) => {
@@ -34,43 +35,14 @@ export const getMedicinces = () => (dispatch) => {
     }
 }
 
-export const addMedicinces = (data) => (dispatch) => {
+export const addMedicinces = (data) => async(dispatch) => {
     try {
-
-        postMedicincesData(data)
-            .then((data) => {
-                dispatch({ type: ActionType.ADD_MEDICINCES, payload: data.data });
-            })
-            .catch((error) => {
-                dispatch(errorMedicinces(error.message));
-            });
-        // fetch(BASED_URL + "Medicices", {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(data)
-        // })
-        //     .then(response => {
-        //         if (response.ok) {
-        //             return response;
-        //         } else {
-        //             var error = new Error('Error ' + response.status + ': ' + response.statusText);
-        //             error.response = response;
-        //             throw error;
-        //         }
-        //     },
-        //         error => {
-        //             var errmess = new Error(error.message);
-        //             throw errmess;
-        //         })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         dispatch({ type: ActionType.ADD_MEDICINCES, payload: data });
-        //     })
-        //     .catch((error) => {
-        //         dispatch(errorMedicinces(error.message));
-        //     });
+        const docRef = await addDoc(collection(db, "medicinces"), {
+        first: "Ada",
+        last: "Lovelace",
+        born: 1815
+    });
+        console.log("Document written with ID: ", docRef.id);
     } catch (error) {
         dispatch(errorMedicinces(error.message));
     }
