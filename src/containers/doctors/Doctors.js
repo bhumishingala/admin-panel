@@ -124,7 +124,7 @@ function Doctors(props) {
         formik.setValues(params.row)
     }
 
-    const handleClickUpdate = () => {
+    const handleClickUpdate = (values) => {
         // let localData = JSON.parse(localStorage.getItem("doctors"));
 
         // let uData = localData.map((u) => {

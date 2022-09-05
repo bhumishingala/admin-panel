@@ -1,7 +1,4 @@
-import { async } from "@firebase/util";
-import { addDoc, collection, doc, getDocs } from "firebase/firestore";
-import { addAllDoctorsdata, deleteAllDotorsData, getAllDoctorsData, updateAllDoctorsdata } from "../../common/axios/Doctors_api";
-import { BASED_URL } from "../../fetch/BasedUrl";
+import { addDoc, collection, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import * as ActionType from '../ActionType';
 
@@ -10,11 +7,11 @@ export const getDoctorsData = () => async (dispatch) => {
         const querySnapshot = await getDocs(collection(db, "Doctors"));
         let data = [];
         querySnapshot.forEach((doc) => {
-            data.push({id : doc.id, ... doc.data()})
+            data.push({ id: doc.id, ...doc.data() })
             console.log(`${doc.id} => ${doc.data()}`);
             console.log(data);
         });
-        dispatch({type : ActionType.GET_DOCTORSDATA , payload : data})
+        dispatch({ type: ActionType.GET_DOCTORSDATA, payload: data })
     } catch (error) {
         dispatch(error_doctors(error.message))
     }
@@ -30,76 +27,25 @@ export const addDoctorsData = (data) => async (dispatch) => {
     }
 }
 
-export const deleteDotorsData = (id) => (dispatch) => {
+export const deleteDotorsData = (id) => async (dispatch) => {
     try {
-        deleteAllDotorsData(id)
-            .then(dispatch({ type: ActionType.DELETE_DOCTORSDATA, payload: id }))
-            .catch((error) => {
-                dispatch(error_doctors(error.message));
-            });
-        // deleteDotorsData
-        // fetch(BASED_URL + 'doctors/' + id, {
-        //     method: 'DELETE',
-        // })
-        //     .then(response => {
-        //         if (response.ok) {
-        //             return response;
-        //         } else {
-        //             var error = new Error('Error ' + response.status + ': ' + response.statusText);
-        //             error.response = response;
-        //             throw error;
-        //         }
-        //     },
-        //         error => {
-        //             var errmess = new Error(error.message);
-        //             throw errmess;
-        //         })
-        //     .then((response) => response.json())
-        //     .then(dispatch({ type: ActionType.DELETE_DOCTORSDATA, payload: id }))
-        //     .catch((error) => {
-        //         dispatch(error_doctors(error.message));
-        //     });
+        await deleteDoc(doc(db, "Doctors", id));
+        console.log(id);
+        dispatch({ type: ActionType.DELETE_DOCTORSDATA, payload: id })
     } catch (error) {
         dispatch(error_doctors(error.message))
     }
 }
 
-export const updateDotoreData = (data) => (dispatch) => {
+export const updateDotoreData = (data) => async(dispatch) => {
     try {
-        updateAllDoctorsdata(data)
-            .then((data) => {
-                dispatch({ type: ActionType.UPDATE_DOCTORSDATA, payload: data.data });
-            })
-            .catch((error) => {
-                dispatch(error_doctors(error.message));
-            });
-        // fetch(BASED_URL + 'doctors/' + data.id, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(data),
-        // })
-        //     .then(response => {
-        //         if (response.ok) {
-        //             return response;
-        //         } else {
-        //             var error = new Error('Error ' + response.status + ': ' + response.statusText);
-        //             error.response = response;
-        //             throw error;
-        //         }
-        //     },
-        //         error => {
-        //             var errmess = new Error(error.message);
-        //             throw errmess;
-        //         })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         dispatch({ type: ActionType.UPDATE_DOCTORSDATA, payload: data });
-        //     })
-        //     .catch((error) => {
-        //         dispatch(error_doctors(error.message));
-        //     });
+        const DoctorsRef = doc(db, "Doctors", data.id);
+        await updateDoc(DoctorsRef, {
+            name : data.name,
+            email : data.email,
+            phone : data.phone
+        });
+        dispatch({type : ActionType.UPDATE_DOCTORSDATA , payload : data})
     } catch (error) {
         dispatch(error_doctors(error.message));
     }
