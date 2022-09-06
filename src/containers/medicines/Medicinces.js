@@ -46,17 +46,15 @@ function Medicinces(props) {
     }
 
     const handleInsert = (values) => {
-        let localData = JSON.parse(localStorage.getItem("Medicinces"));
+        // let localData = JSON.parse(localStorage.getItem("Medicinces"));
 
-        let id = Math.floor(Math.random() * 1000);
-        let data = {
-            id: id,
-            ...values
-        }
+        // let id = Math.floor(Math.random() * 1000);
+        // let data = {
+        //     id: id,
+        //     ...values
+        // }
 
-        dispatch(addMedicinces(data));
-
-        console.log(id);
+        dispatch(addMedicinces(values));
 
         // if (localData === null) {
         //     localStorage.setItem("Medicinces", JSON.stringify([data]))
@@ -115,7 +113,7 @@ function Medicinces(props) {
         },
     });
 
-    const { handleBlur, handleSubmit, handleChange, errors, touched, values } = formik;
+    const { handleBlur, handleSubmit, handleChange, errors, touched, values} = formik;
 
     const columns = [
         { field: 'name', headerName: 'Name', width: 250 },

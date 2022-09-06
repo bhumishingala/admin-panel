@@ -40,14 +40,16 @@ function Doctors(props) {
     let schema = yup.object().shape({
         name: yup.string().required("Please Enter Your Name."),
         email: yup.string().email("Please Enter Vaild Email Id.").required("Please Enter Email Id."),
-        phone: yup.string().matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Enter a valid phone number').min(10, "too short").required('Phone number is required')
+        phone: yup.string().matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, 'Enter a valid phone number').min(10, "too short").required('Phone number is required'),
+        prof_img:yup.mixed().required("please Selete Your Profile Image.")
     });
 
     const formik = useFormik({
         initialValues: {
             name: '',
             email: '',
-            phone: ''
+            phone: '',
+            prof_img:''
         },
         validationSchema: schema,
         onSubmit: values => {
@@ -59,7 +61,7 @@ function Doctors(props) {
         },
     });
 
-    const { handleBlur, handleChange, handleSubmit, errors, touched, values } = formik;
+    const { handleBlur, handleChange, handleSubmit, errors, touched, values,setFieldValue } = formik;
 
     const handleInsert = (values) => {
         // let localData = JSON.parse(localStorage.getItem("doctors"));
@@ -79,6 +81,7 @@ function Doctors(props) {
         // }
         // console.log(data);  
         dispatch(addDoctorsData(values));
+        console.log(values);
 
         handleClose();
         LoadData();
@@ -265,6 +268,12 @@ function Doctors(props) {
                                                     onBlur={handleBlur}
                                                 />
                                                 {errors.phone && touched.phone ? <p>{errors.phone}</p> : ''}
+                                                <input 
+                                                    type="file"
+                                                    name="prof_img"
+                                                    onChange={(e) => setFieldValue("prof_img",e.target.files[0])}
+                                                />
+                                                {errors.prof_img && touched.prof_img ? <p>{errors.prof_img}</p> : ''}
                                                 <DialogActions>
                                                     <Button onClick={handleClose}>Cancel</Button>
                                                     {

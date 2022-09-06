@@ -1,5 +1,7 @@
+import { async } from "@firebase/util";
 import { addDoc, collection, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { db, storage } from "../../firebase";
 import * as ActionType from '../ActionType';
 
 export const getDoctorsData = () => async (dispatch) => {
@@ -8,8 +10,8 @@ export const getDoctorsData = () => async (dispatch) => {
         let data = [];
         querySnapshot.forEach((doc) => {
             data.push({ id: doc.id, ...doc.data() })
-            console.log(`${doc.id} => ${doc.data()}`);
-            console.log(data);
+            // console.log(`${doc.id} => ${doc.data()}`);
+            // console.log(data);
         });
         dispatch({ type: ActionType.GET_DOCTORSDATA, payload: data })
     } catch (error) {
@@ -19,9 +21,25 @@ export const getDoctorsData = () => async (dispatch) => {
 
 export const addDoctorsData = (data) => async (dispatch) => {
     try {
-        const docRef = await addDoc(collection(db, "Doctors"), data);
-        console.log("Document written with ID: ", docRef.id);
-        dispatch({ type: ActionType.ADD_DOCTORSDATA, payload: { id: docRef.id, ...data } })
+        const DoctorsRef = ref(storage, 'Doctors/' + data.prof_img.name);
+        uploadBytes(DoctorsRef, data.prof_img)
+            .then((snapshot) => {
+                getDownloadURL(ref(storage, snapshot.ref))
+                    .then(async (url) => {
+                        const docRef = await addDoc(collection(db, "Doctors"), {
+                            ...data,
+                            prof_img: url
+                        });
+                        dispatch({
+                            type: ActionType.ADD_DOCTORSDATA, payload: {
+                                id: docRef.id,
+                                ...data,
+                                prof_img : url
+                            }
+                        })
+                    });
+            });
+
     } catch (error) {
         dispatch(error_doctors(error.message));
     }
@@ -37,15 +55,15 @@ export const deleteDotorsData = (id) => async (dispatch) => {
     }
 }
 
-export const updateDotoreData = (data) => async(dispatch) => {
+export const updateDotoreData = (data) => async (dispatch) => {
     try {
         const DoctorsRef = doc(db, "Doctors", data.id);
         await updateDoc(DoctorsRef, {
-            name : data.name,
-            email : data.email,
-            phone : data.phone
+            name: data.name,
+            email: data.email,
+            phone: data.phone
         });
-        dispatch({type : ActionType.UPDATE_DOCTORSDATA , payload : data})
+        dispatch({ type: ActionType.UPDATE_DOCTORSDATA, payload: data })
     } catch (error) {
         dispatch(error_doctors(error.message));
     }
