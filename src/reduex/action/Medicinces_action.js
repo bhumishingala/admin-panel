@@ -1,48 +1,28 @@
 import { deleteMedicincesData, getAllMedicincesData, postMedicincesData, updateMedicincesData } from "../../common/axios/Medicinces_api";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import * as ActionType from "../ActionType";
 import { db } from "../../firebase";
 
 
-export const getMedicinces = () => (dispatch) => {
+export const getMedicinces = () => async (dispatch) => {
     try {
-        dispatch(LoadingMedicinces());
-
-        setTimeout(function () {
-            getAllMedicincesData()
-                .then((data) => dispatch({ type: ActionType.GET_VALUE, payload: data.data }))
-                .catch((error) => dispatch(errorMedicinces(error.message)))
-            // fetch(BASED_URL + 'Medicices')
-            //     .then(response => {
-            //         if (response.ok) {
-            //             return response;
-            //         } else {
-            //             var error = new Error('Error ' + response.status + ': ' + response.statusText);
-            //             error.response = response;
-            //             throw error;
-            //         }
-            //     },
-            //         error => {
-            //             var errmess = new Error(error.message);
-            //             throw errmess;
-            //         })
-            //     .then((response) => response.json())
-            //     .then((data) => dispatch({ type: ActionType.GET_VALUE, payload: data }))
-            //     .catch((error) => dispatch(errorMedicinces(error.message)));
-        }, 2000);
+        const querySnapshot = await getDocs(collection(db, "Medicinces"));
+        querySnapshot.forEach((doc) => {
+            console.log(`${doc.id} => ${doc.data()}`);
+        });
     } catch (error) {
         dispatch(errorMedicinces(error.message))
     }
 }
 
-export const addMedicinces = (data) => async(dispatch) => {
+export const addMedicinces = (data) => async (dispatch) => {
     try {
-        const docRef = await addDoc(collection(db, "medicinces"), {
-        first: "Ada",
-        last: "Lovelace",
-        born: 1815
-    });
-        console.log("Document written with ID: ", docRef.id);
+        const docRef = await addDoc(collection(db, "Medicinces"), {
+            first: "Ada",
+            last: "Lovelace",
+            born: 1815
+        });
+        console.log("Document written with ID: ");
     } catch (error) {
         dispatch(errorMedicinces(error.message));
     }

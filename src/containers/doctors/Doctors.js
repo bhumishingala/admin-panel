@@ -92,12 +92,20 @@ function Doctors(props) {
         { field: 'name', headerName: 'name', width: 170 },
         { field: 'email', headerName: 'email', width: 250 },
         { field: 'phone', headerName: 'phone', width: 170 },
+        { 
+            field: 'prof_img', 
+            headerName: 'Profile Image', 
+            width: 170 ,
+            renderCell : (params) => (
+                <img src={params.row.prof_img} width={50} height={50}/>
+            )
+        },
         {
             field: "action",
             headerName: "Action",
             renderCell: (params) => (
                 <>
-                    <IconButton aria-label="delete" onClick={() => { handleDClickOpen(); setDid(params.id) }}>
+                    <IconButton aria-label="delete" onClick={() => { handleDClickOpen(); setDid(params) }}>
                         <DeleteIcon />
                     </IconButton>
                     <IconButton aria-label="delete" onClick={() => handleEdit(params)}>
