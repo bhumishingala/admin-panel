@@ -51,8 +51,7 @@ export const addDoctorsData = (data) => async (dispatch) => {
 
 export const deleteDotorsData = (data) => async (dispatch) => {
     try {
-        console.log(data.row);
-        const deletetRef = ref(storage, "Doctors/" + data.row.fileName);
+        const deletetRef = ref(storage, "Doctors/" + data.fileName);
 
         deleteObject(deletetRef)
             .then(async () => {
@@ -67,14 +66,40 @@ export const deleteDotorsData = (data) => async (dispatch) => {
 }
 
 export const updateDotoreData = (data) => async (dispatch) => {
+    console.log(data);
     try {
         const DoctorsRef = doc(db, "Doctors", data.id);
-        await updateDoc(DoctorsRef, {
-            name: data.name,
-            email: data.email,
-            phone: data.phone
-        });
-        dispatch({ type: ActionType.UPDATE_DOCTORSDATA, payload: data })
+        if (typeof data.prof_img === "string") {
+            await updateDoc(DoctorsRef, {
+                name: data.name,
+                email: data.email,
+                phone: data.phone
+            });
+            dispatch({ type: ActionType.UPDATE_DOCTORSDATA, payload: data })
+        } else {
+            const deldoctorstRef = ref(storage, "Doctors/" + data.fileName);
+            let radomNum = Math.floor(Math.random() * 1000000).toString();
+            const updoctorsRef = ref(storage, 'Doctors/' + radomNum);
+
+            deleteObject(deldoctorstRef)
+                .then(() => {
+                    uploadBytes(updoctorsRef, data.prof_img)
+                        .then((snapshot) => {
+                            getDownloadURL(ref(storage, snapshot.ref))
+                                .then(async(url) => {
+                                    await updateDoc(DoctorsRef, {
+                                        name: data.name,
+                                        email: data.email,
+                                        phone: data.phone,
+                                        fileName : radomNum,
+                                        prof_img : url
+                                    });
+                                    dispatch({ type: ActionType.UPDATE_DOCTORSDATA, payload: {...data,fileName : radomNum,prof_img : url} })
+                                })
+                        })
+                })
+        }
+
     } catch (error) {
         dispatch(error_doctors(error.message));
     }

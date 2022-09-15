@@ -105,7 +105,7 @@ function Doctors(props) {
             headerName: "Action",
             renderCell: (params) => (
                 <>
-                    <IconButton aria-label="delete" onClick={() => { handleDClickOpen(); setDid(params) }}>
+                    <IconButton aria-label="delete" onClick={() => { handleDClickOpen(); setDid(params.row) }}>
                         <DeleteIcon />
                     </IconButton>
                     <IconButton aria-label="delete" onClick={() => handleEdit(params)}>
