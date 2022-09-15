@@ -20,6 +20,7 @@ import MedicationIcon from '@mui/icons-material/Medication';
 import PersonIcon from '@mui/icons-material/Person';
 import MedicationLiquidIcon from '@mui/icons-material/MedicationLiquid';
 import { NavLink } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const drawerWidth = 240;
 
@@ -85,6 +86,7 @@ export default function Layout({ children }) {
         { lable: 'patients', icon: <PersonIcon />, to: "/patients" },
         { lable: 'doctors', icon: <MedicationLiquidIcon />, to: "/doctors" },
         { lable: 'counter', icon: <MedicationLiquidIcon />, to: "/counter" },
+        { lable: 'Categary', icon: <ShoppingCartIcon />, to: "/Categary" },
         { lable: 'promise Example', icon: <MedicationLiquidIcon />, to: "/promise_Exmaple" },
     ]
 
