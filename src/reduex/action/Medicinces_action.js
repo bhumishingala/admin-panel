@@ -22,7 +22,7 @@ export const addMedicinces = (data) => async (dispatch) => {
             last: "Lovelace",
             born: 1815
         });
-        console.log("Document written with ID: ");
+       console.log(docRef);
     } catch (error) {
         dispatch(errorMedicinces(error.message));
     }
