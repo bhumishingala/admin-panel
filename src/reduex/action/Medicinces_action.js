@@ -17,11 +17,7 @@ export const getMedicinces = () => async (dispatch) => {
 
 export const addMedicinces = (data) => async (dispatch) => {
     try {
-        const docRef = await addDoc(collection(db, "Medicinces"), {
-            first: "Ada",
-            last: "Lovelace",
-            born: 1815
-        });
+        const docRef = await addDoc(collection(db, "Medicinces"), data);
        console.log(docRef);
     } catch (error) {
         dispatch(errorMedicinces(error.message));

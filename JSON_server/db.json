@@ -1,24 +1,5 @@
 {
   "Medicices": [],
-  "Patients": [
-    {
-      "id": 3,
-      "name": "H123",
-      "message": "fvfhvgh cdhv",
-      "date": "2025-01-02"
-    },
-    {
-      "id": 4,
-      "name": "MNP456",
-      "message": "fvfhvgh cdhv",
-      "date": "20201-12-12"
-    },
-    {
-      "id": 2039,
-      "name": "D",
-      "message": "dbhedgfdyehgfr",
-      "date": "2022-09-02"
-    }
-  ],
+  "Patients": [],
   "doctors": []
 }

@@ -1,4 +1,6 @@
+import { addDoc, collection } from "firebase/firestore";
 import { BASED_URL } from "../../fetch/BasedUrl";
+import { db } from "../../firebase";
 import * as Actiontype from "../ActionType";
 
 export const getPatientsData = () => (dispatch) => {
@@ -30,33 +32,14 @@ export const getPatientsData = () => (dispatch) => {
     }
 }
 
-export const addPatients = (data) => (dispatch) => {
+export const addPatients = (data) => async(dispatch) => {
     try{
-        fetch(BASED_URL + 'Patients', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                    error.response = response;
-                    throw error;
-                }
-            },
-                error => {
-                    var errmess = new Error(error.message);
-                    throw errmess;
-                })
-            .then((response) => response.json())
-            .then((data) => dispatch({ type: Actiontype.ADD_PATIENTS, payload: data }))
-            .catch((error) => {
-               dispatch(error_Patients(error.message))
-            });
+        const docRef = await addDoc(collection(db, "Medicinces"), {
+            first: "Ada",
+            last: "Lovelace",
+            born: 1815
+        });
+       console.log(data,docRef);
     }catch(error){
         dispatch(error_Patients(error.message))
     }

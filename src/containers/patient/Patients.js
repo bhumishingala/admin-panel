@@ -112,13 +112,13 @@ function Patients(props) {
     }
 
     const handleInsert = (values) => {
-        let localData = JSON.parse(localStorage.getItem("Patients"));
+        // let localData = JSON.parse(localStorage.getItem("Patients"));
 
-        let id = Math.floor(Math.random() * 10000);
-        let data = {
-            id: id,
-            ...values
-        }
+        // let id = Math.floor(Math.random() * 10000);
+        // let data = {
+        //     id: id,
+        //     ...values
+        // }
 
         // if (localData === null) {
         //     localStorage.setItem("Patients", JSON.stringify([data]));
@@ -127,9 +127,9 @@ function Patients(props) {
         //     localStorage.setItem("Patients", JSON.stringify(localData));
         // }
 
-        dispatch(addPatients(data));
+        dispatch(addPatients(values));
 
-        console.log(values, localData);
+        // console.log(values, localData);
         handleClose();
         formik.resetForm();
         loadData();
