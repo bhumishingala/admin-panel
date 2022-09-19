@@ -9,6 +9,8 @@ import Counter from './containers/counter/Counter';
 import { PersistGate } from 'redux-persist/integration/react';
 import PromiseExample from './containers/example/PromiseExample';
 import Categaory from './containers/categaory/Categaory';
+import ExampleUseMemo from './containers/example/ExampleUseMemo';
+import ExampleUseCallback from './containers/example/ExampleUseCallback';
 
 function App() {
   const {store , persistor} = conFigureStore();
@@ -25,6 +27,8 @@ function App() {
               <Route path={"/counter"} exact component={Counter} />
               <Route path={"/Categary"} exact component={Categaory} />
               <Route path={"/promise_Exmaple"} exact component={PromiseExample} />
+              <Route path={"/ExampleUseMemo"} exact component={ExampleUseMemo} />
+              <Route path={"/ExampleUseCallback"} exact component={ExampleUseCallback} />
             </Switch>
           </Layout>
         </PersistGate>

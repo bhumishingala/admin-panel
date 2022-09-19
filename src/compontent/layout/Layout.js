@@ -88,6 +88,8 @@ export default function Layout({ children }) {
         { lable: 'counter', icon: <MedicationLiquidIcon />, to: "/counter" },
         { lable: 'Categary', icon: <ShoppingCartIcon />, to: "/Categary" },
         { lable: 'promise Example', icon: <MedicationLiquidIcon />, to: "/promise_Exmaple" },
+        { lable: 'Example UseMemo', icon: <MedicationLiquidIcon />, to: "/ExampleUseMemo" },
+        { lable: 'Example UseCallback', icon: <MedicationLiquidIcon />, to: "/ExampleUseCallback" },
     ]
 
     return (
