@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Listitem from './Listitem';
 
 function ExampleUseCallback(props) {
@@ -10,13 +10,15 @@ function ExampleUseCallback(props) {
         color : theme ? '#fff' : '#000'
     }
 
-    const getItem = () => {
-
-    }
+    const getItem = useCallback((inc) => {
+        return[inc + num , inc + num + 1, inc + num + 2]
+    },[num])
 
     return (
         <div style={Toggle_theme}>
             <button onClick={() => setTheme(!theme)}>Toggle Theme</button>
+
+            <br />
             <input type="text" onChange={(e) => setNum(parseInt(e.target.value))}/>
             <Listitem getItem = {getItem}/>
         </div>
