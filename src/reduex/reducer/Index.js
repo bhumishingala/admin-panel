@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { categoryReducer } from "./Category_reduex";
 import { counterReduex } from "./Counter_reduex";
 import { doctorsreducer } from "./Doctors_reduex";
 import { medicincesReduex } from "./Medicinces_reduex";
@@ -10,4 +11,5 @@ export const rootCounter = combineReducers ({
     medicinces : medicincesReduex,
     patients : Patientsreduex,
     doctors : doctorsreducer,
+    category : categoryReducer
 })

@@ -1,59 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Input } from '@mui/material';
 import * as yup from 'yup';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { Form, Formik, useFormik } from 'formik';
 import { DataGrid } from '@mui/x-data-grid';
-
-const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'firstName', headerName: 'First name', width: 130 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
-    {
-        field: 'age',
-        headerName: 'Age',
-        type: 'number',
-        width: 90,
-    },
-    {
-        field: 'fullName',
-        headerName: 'Full name',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 160,
-        valueGetter: (params) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    },
-];
-
-const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+import { useDispatch, useSelector } from 'react-redux';
+import { addCategory, deleteCategory, getCategory, updateCategory } from '../../reduex/action/Category_action';
 
 function Categaory(props) {
+    const dispatch = useDispatch();
+    const category = useSelector(state => state.category)
     const [open, setOpen] = React.useState(false);
+    const [update, setUpdate] = useState(false);
+    const [data, setData] = useState([]);
+    const [dopen, setDOpen] = React.useState(false);
+    const [did, setDid] = useState(0);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
+    const handleDClickOpen = () => {
+        setDOpen(true);
+    };
+
     const handleClose = () => {
         setOpen(false);
+        setDOpen(false);
+        setUpdate(false);
+        formik.resetForm();
     };
+
+    const columns = [
+        { field: "name", headerName: 'Name', width: 170 },
+        {
+            field: "Prof_img",
+            headerName: 'Profile Image',
+            width: 170,
+            renderCell: (params) => (
+                <img src={params.row.Prof_img} width={70} height={50} />
+            )
+        },
+        {
+            field: "action",
+            headerName: "Action",
+            renderCell: (params) => (
+                <>
+                    <IconButton aria-label="delete" onClick={() => { handleDClickOpen(); setDid(params.row) }}>
+                        <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={() => handleEdit(params)}>
+                        <EditIcon />
+                    </IconButton>
+                </>
+            )
+        }
+    ];
 
     let schema = yup.object().shape({
         name: yup.string().required("Plaese Enter Name"),
@@ -67,17 +76,67 @@ function Categaory(props) {
         },
         validationSchema: schema,
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            if (update) {
+                handleClickUpdate(values);
+            } else {
+                handleInsert(values);
+            }
+            console.log(values);
+            handleClose()
         },
     });
 
-    const { handleSubmit, handleChange, handleBlur, errors, touched, setFieldValue } = formik;
+    const handleEdit = (params) => {
+        handleClickOpen();
+
+        setUpdate(true);
+        formik.setValues(params.row)
+    }
+
+    const handleClickUpdate = (values) => {
+        dispatch(updateCategory(values));
+        handleClose();
+    }
+
+    const handleInsert = (values) => {
+        dispatch(addCategory(values));
+        console.log(values);
+
+        handleClose();
+        formik.resetForm()
+    }
+    const handleDelete = (params) => {
+        dispatch(deleteCategory(did));
+        handleClose();
+    }
+
+    const { handleSubmit, handleChange, handleBlur, errors,values,touched, setFieldValue } = formik;
+
+    useEffect(() => {
+        dispatch(getCategory());
+    }, [])
 
     return (
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Add category
             </Button>
+            <Dialog
+                open={dopen}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Are You Sure Delete?"}
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick={handleClose}>No</Button>
+                    <Button onClick={handleDelete} autoFocus>
+                        Yes
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <Dialog open={open} onClose={handleClose} fullWidth>
                 <DialogTitle>Add category</DialogTitle>
                 <Formik values={formik}>
@@ -91,6 +150,7 @@ function Categaory(props) {
                                 name="name"
                                 fullWidth
                                 variant="standard"
+                                value={values.name}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
@@ -112,7 +172,7 @@ function Categaory(props) {
             </Dialog>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={rows}
+                    rows={category.category}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
